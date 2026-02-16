@@ -9,29 +9,154 @@
 body {
     margin: 0;
     height: 100vh;
+    overflow: hidden;
+    font-family: serif;
+    background: radial-gradient(circle at center, #3a0000 0%, #1a0000 60%, #000000 100%);
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #1a0000;
     color: white;
-    font-family: serif;
 }
 
-h1 {
-    text-align: center;
-    letter-spacing: 5px;
+/* Subtle rose depth layers */
+body::before, body::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(120,0,0,0.4) 10%, transparent 60%);
+    animation: slowMove 25s linear infinite;
+    z-index: 0;
 }
+
+body::after {
+    animation-direction: reverse;
+    opacity: 0.6;
+}
+
+@keyframes slowMove {
+    0% { transform: translate(-10%, -10%); }
+    50% { transform: translate(5%, 5%); }
+    100% { transform: translate(-10%, -10%); }
+}
+
+/* Center container */
+.container {
+    text-align: center;
+    z-index: 2;
+    opacity: 1;
+    transition: opacity 2s ease;
+}
+
+/* Vertical welcome text */
+.vertical-text {
+    font-size: 2.2rem;
+    letter-spacing: 6px;
+    line-height: 2.2;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+/* Title styling */
+.title {
+    font-size: 2.8rem;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.sanskrit {
+    font-size: 2.5rem;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+/* Artistic Couple (simple vector shapes) */
+.couple {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10%;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 3s ease;
+}
+
+.figure {
+    width: 80px;
+    height: 150px;
+    background: linear-gradient(#aa4444, #551111);
+    border-radius: 50% 50% 20% 20%;
+}
+
 </style>
 </head>
 
 <body>
 
-<h1>
-WELC❤️ME<br>
-T❤️<br>
-❤️UR<br>
-W❤️RLD
-</h1>
+<audio id="flute" preload="auto">
+  <source src="flute.mp3" type="audio/mpeg">
+</audio>
+
+<div id="welcome" class="container">
+    <div class="vertical-text">
+        WELC❤️ME<br>
+           T❤️<br>
+            ❤️UR<br>
+           W❤️RLD
+    </div>
+</div>
+
+<div id="titleEnglish" class="container title">
+    Sahasr̥ṣṭi<br>Viśvam
+</div>
+
+<div id="titleSanskrit" class="container sanskrit">
+    सहसृष्टि<br>विश्वम्
+</div>
+
+<div id="couple" class="couple">
+    <div class="figure"></div>
+    <div class="figure"></div>
+</div>
+
+<script>
+
+const welcome = document.getElementById("welcome");
+const titleEnglish = document.getElementById("titleEnglish");
+const titleSanskrit = document.getElementById("titleSanskrit");
+const couple = document.getElementById("couple");
+const flute = document.getElementById("flute");
+
+// Scene timing
+
+setTimeout(() => {
+    welcome.classList.add("hidden");
+}, 3000);
+
+setTimeout(() => {
+    titleEnglish.style.opacity = "1";
+    flute.play().catch(() => {});
+}, 5000);
+
+setTimeout(() => {
+    titleEnglish.style.opacity = "0";
+    titleSanskrit.style.opacity = "1";
+}, 8000);
+
+setTimeout(() => {
+    couple.style.opacity = "1";
+}, 10000);
+
+setTimeout(() => {
+    flute.pause();
+}, 12000);
+
+</script>
 
 </body>
 </html>
+
